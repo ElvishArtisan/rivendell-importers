@@ -2,3 +2,5 @@
 	* Initial import.
 2014-10-25 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed typo in 'README'.
+2014-10-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for start and end dates in 'digilink-import.pl'.

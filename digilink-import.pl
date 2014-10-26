@@ -39,7 +39,15 @@ foreach $file (@files) {
 	    "\"--set-string-artist=".$f0[1]."\" ".
 	    sprintf("--set-marker-end-talk=%d ",1000*$f0[3]).
 	    sprintf("--set-marker-start-segue=%d ",-1000*$f0[4]);
-
+	if((scalar @start eq 3)&&(scalar @end eq 3)) {
+	    if($end[2] lt 2099) {
+		$cmd=$cmd."--set-datetimes=".
+		    sprintf("%04d%02d%02d-000000,",
+			    $start[2],$start[0],$start[1]).
+			    sprintf("%04d%02d%02d-235959 ",
+				    $end[2],$end[0],$end[1]);
+	    }
+	}
 	$cmd=$cmd.$group_name." \"".$file."\"";
 	print "Importing \"".$f0[2]."\" / \"".$f0[1]."\" into ".$group_name;
 	system($cmd);
