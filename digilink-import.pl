@@ -36,6 +36,7 @@ foreach $file (@files) {
 	my @start=split '_',$f0[6];
 	my @end=split '_',$f0[7];
 	my $cmd="rdimport \"--set-string-title=".$f0[2]."\" ".
+	    "--autotrim-level=0 ".
 	    "\"--set-string-artist=".$f0[1]."\" ".
 	    sprintf("--set-marker-end-talk=%d ",1000*$f0[3]).
 	    sprintf("--set-marker-start-segue=%d ",-1000*$f0[4]);
