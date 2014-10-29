@@ -6,3 +6,7 @@
 	* Added support for start and end dates in 'digilink-import.pl'.
 2014-10-26 Fred Gleason <fredg@paravelsystems.com>
 	* Disabled autotrim in 'digilink-import.pl'.
+2014-10-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added pass-through for rdimport(1) options in 'digilink-import.pl'.
+	* Added '--string1-to=' and 'string2-to=' options in
+	'digilink-import.pl'.
