@@ -85,6 +85,9 @@ if(scalar @ARGV lt 2) {
 my $rdimport_args="";
 my @keys;
 my @values;
+my $to_cart_used=0;
+my $cart_number=0;
+my $cart_number_offset=0;
 
 #
 # Read Options
@@ -110,6 +113,13 @@ for(my $i=0;$i<(scalar @ARGV-2);$i++) {
 for(my $i=0;$i<scalar @keys;$i++) {
     for(my $j=0;$j<scalar @rdimport_opts;$j++) {
 	if($keys[$i] eq $rdimport_opts[$j]) {
+	    if($keys[$i] eq "--to-cart") {
+		$cart_number=$values[$i];
+		$to_cart_used=1;
+	    }
+	    if($keys[$i] eq "--cart-number-offset") {
+		$cart_number_offset=$values[$i];
+	    }
 	    $rdimport_args=$rdimport_args." \"".$keys[$i];
 	    if($values[$i] ne "") {
 		$rdimport_args=$rdimport_args."=".$values[$i];
@@ -123,12 +133,6 @@ for(my $i=0;$i<scalar @keys;$i++) {
     }
 }
 
-#print "RDImport args: ".$rdimport_args."\n";
-
-#for(my $i=0;$i<scalar @keys;$i++) {
-#    print "key[".$i."]: ".$keys[$i]."  value[".$i."]: ".$values[$i]."\n";
-#}
-
 my $filespec=pop @ARGV;
 my $group_name=pop @ARGV;
 
@@ -138,24 +142,30 @@ my $group_name=pop @ARGV;
 
 
 #############################################################################
-#  Now we're ready to Do The Business.  The following variables are         #
-#  available:                                                               #
+#      Now we're ready to Do The Business.  The following variables are     #
+#      available:                                                           #
 #                                                                           #
-#     $group_name - The <group-name> specified on the command-line.         #
+#         $group_name - The <group-name> specified on the command-line.     #
 #                                                                           #
-#       $filespec - The <filespec> specified on the command-line.           #
+#           $filespec - The <filespec> specified on the command-line.       #
 #                                                                           #
-#  $rdimport_args - The list of rdimport options from the command-line.     #
-#                   Generally, it's safe to just pass this whole to         #
-#                   rdimport(1).                                            #
+#      $rdimport_args - The list of rdimport options from the command-line. #
+#                       Generally, it's safe to just pass this whole to     #
+#                       rdimport(1).                                        #
 #                                                                           #
-#           @keys - The key (left side of the '=' sign) part of the         #
-#                   command-line options, scrubbed of any rdimport(1)       #
-#                   options.                                                #
+#               @keys - The key (left side of the '=' sign) part of the     #
+#                       command-line options, scrubbed of any rdimport(1)   #
+#                       options.                                            #
 #                                                                           #
-#         @values - The value (right-hand side of '=' sign) part of the     #
-#                   command-line options, scrubbed of any rdimport(1)       #
-#                   options.                                                #
+#             @values - The value (right-hand side of '=' sign) part of the #
+#                       command-line options, scrubbed of any rdimport(1)   #
+#                       options.                                            #
+#                                                                           #
+#       $to_cart_used - Boolean.  If 'true', it means that the --to-cart    #
+#                       option was specified --i.e. you probably don't want #
+#                       use the cart number read from the file metadata.    #
+#                                                                           #
+# $cart_number_offset - Value of the --cart-number-offset option.           #
 #############################################################################
 
 #
@@ -197,8 +207,13 @@ foreach $file (@files) {
 				    $end[2],$end[0],$end[1]);
 	    }
 	}
+	if(! $to_cart_used) {
+	    $cart_number=substr($f0[0],1,7)+$cart_number_offset;
+	    $cmd=$cmd."--to-cart=".$cart_number." ";
+	}
 	$cmd=$cmd.$group_name." \"".$file."\"";
-	print "Importing \"".$f0[1]."\" / \"".$f0[2]."\" into ".$group_name;
+	print "Importing \"".$f0[1]."\" / \"".$f0[2]."\" to cart ".
+	    sprintf("%06u.",$cart_number);
 	system($cmd);
     }
 }
