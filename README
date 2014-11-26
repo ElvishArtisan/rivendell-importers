@@ -2,4 +2,12 @@ This is a little collection of scripts for importing audio from various
 radio playout systems into Rivendell.  They require Rivendell v2.10.0
 or later to function properly.
 
+AUDIO IMPORTERS
+---------------
 digilink_import.pl -- Import audio from an Arrakis Digilink Xtreme
+
+
+LOG IMPORTERS
+-------------
+mm_splitter.pl -- Split a MusicMaster log into separate 'music' and 'traffic'
+                  imports.

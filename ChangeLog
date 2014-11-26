@@ -15,3 +15,5 @@
 	'--to-cart' and '--cart-number-offset' options.
 2014-11-25 Fred Gleason <fredg@paravelsystems.com>
 	* Moved 'digilink-import.pl' to 'audio/'digilink-import.pl'.
+2014-11-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'log/mm-splitter.pl'.
