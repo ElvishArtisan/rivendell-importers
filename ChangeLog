@@ -17,3 +17,6 @@
 	* Moved 'digilink-import.pl' to 'audio/'digilink-import.pl'.
 2014-11-25 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'log/mm-splitter.pl'.
+2014-11-30 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'log/mm-splitter.pl' that caused 'traffic'
+	and 'music' data lines to be transposed.

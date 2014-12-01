@@ -30,11 +30,17 @@ open(SRC,$src_file) or die("unable to open \"".$src_file."\"");
 open($tfc,'>',$src_file.".tfc") or die("unable to open \"".$src_file.".tfc\"");
 open($mus,'>',$src_file.".mus") or die("unable to open \"".$src_file.".mus\"");
 
-my $tfc_mode=FALSE;
+my $tfc_mode=0;
+
+my $line_no=1;
 
 foreach $line (<SRC>) {
+    chomp $line;
     my $title=trim(substr($line,10,24));
     if($title eq "BREAK") {
+	if(!$tfc_mode) {
+	    print $mus "BREAK";
+	}
 	$tfc_mode=!$tfc_mode;
     }
     else {
@@ -45,6 +51,7 @@ foreach $line (<SRC>) {
 	    print $mus $line;
 	}
     }
+    $line_no++;
 }
 
 close($mus);
