@@ -208,8 +208,11 @@ while (!$dbh->eof) {
 	$cmd=$cmd.sprintf(" --set-marker-end-segue=%d",$dbh->get_field("SEGUELEN")*1000);
 	$cmd=$cmd." ".&trim($dbh->get_field("GROUP"));
 	$cmd=$cmd." ".$cutpath;
-	printf("Importing cut %d [%s]\n",$cartnum,&trim($dbh->get_field("TITLE")));
+	printf "Importing cut %d [%s]\n",$cartnum,&trim($dbh->get_field("TITLE"));
 	system($cmd);
+    }
+    else {
+	printf STDERR "Cut %d [%s] has no audio, skipping...\n", $cartnum,&trim($dbh->get_field("TITLE"));
     }
     $dbh->go_next;
 }

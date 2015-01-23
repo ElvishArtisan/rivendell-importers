@@ -25,3 +25,6 @@
 	* Added 'audio/nested-import.pl'.
 2015-01-22 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'audio/dadpro-import.pl'.
+2015-01-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added an error message for when cut audio is missing in
+	'audio/dadpro-import.pl'.
