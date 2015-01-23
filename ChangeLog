@@ -23,3 +23,5 @@
 	and 'music' data lines to be transposed.
 2015-01-16 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'audio/nested-import.pl'.
+2015-01-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'audio/dadpro-import.pl'.

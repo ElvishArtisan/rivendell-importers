@@ -4,7 +4,11 @@ or later to function properly.
 
 AUDIO IMPORTERS
 ---------------
+dadpro_import.pl -- Import audio from an ENCO DADPro system
+
 digilink_import.pl -- Import audio from an Arrakis Digilink Xtreme
+
+nested_import.pl -- Recursively import audio from a file tree.
 
 
 LOG IMPORTERS
