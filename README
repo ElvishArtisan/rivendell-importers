@@ -13,5 +13,8 @@ nested_import.pl -- Recursively import audio from a file tree.
 
 LOG IMPORTERS
 -------------
+fix_oversched.pl -- Rewrite overschedule log import events to be within
+                    valid time range.
+
 mm_splitter.pl -- Split a MusicMaster log into separate 'music' and 'traffic'
                   imports.
