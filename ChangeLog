@@ -32,3 +32,7 @@
 	* Added 'fix_oversched.pl'.
 2016-06-05 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'audio/soundpanel_import.pl'.
+2016-06-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed typo in the '--add-scheduler-code=' switch in
+	'audio/dadpro-import.pl', 'audio/digilink-import.pl' and
+	'audio/nested-import.pl'.

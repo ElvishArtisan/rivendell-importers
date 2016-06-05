@@ -32,7 +32,7 @@ use File::Find;
 #
 # RDImport Options
 #
-my @rdimport_opts=('--add_scheduler-codes',
+my @rdimport_opts=('--add-scheduler-code',
 		   '--autotrim-level',
 		   '--cart-number-offset',
 		   '--create-enddate-offset',
