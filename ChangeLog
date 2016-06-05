@@ -30,3 +30,5 @@
 	'audio/dadpro-import.pl'.
 2015-02-13 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'fix_oversched.pl'.
+2016-06-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'audio/soundpanel_import.pl'.
