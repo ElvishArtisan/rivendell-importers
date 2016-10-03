@@ -36,3 +36,5 @@
 	* Fixed typo in the '--add-scheduler-code=' switch in
 	'audio/dadpro-import.pl', 'audio/digilink-import.pl' and
 	'audio/nested-import.pl'.
+2016-10-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'log/vttrim.pl'.
