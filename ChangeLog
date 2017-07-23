@@ -38,3 +38,5 @@
 	'audio/nested-import.pl'.
 2016-10-03 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'log/vttrim.pl'.
+2017-07-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'log/musicplus.pl'.
