@@ -43,3 +43,6 @@
 2017-07-27 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'log/musicplus.pl' that caused an incorrect cart
 	number to be generated when the 'MM_TRACK' field was less than '10'.
+2017-07-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a fencepost error in 'log/musicplus.pl' that caused breaks to
+	be inserted after the last event of the preceding music set.

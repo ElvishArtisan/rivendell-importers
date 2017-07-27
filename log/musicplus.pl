@@ -4,6 +4,8 @@
 #
 # (C) Copyright 2017 Fred Gleason <fredg@paravelsystems.com>
 #
+#   This scriptrequire the perl-DBD-Xbase package.
+#
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
 #   published by the Free Software Foundation.
@@ -43,6 +45,20 @@ for(my $i=0;$i<$table->last_record;$i++) {
 	    $seconds=0;
 	    $hour=$id[5];
 	}
+
+	#
+	# Place Break
+	#
+	if($id[9] ne "*") {
+	    printf(F"%02d:%02d:%02d  BREAK          SPOT BREAK                         00:04:00\n",
+		   $hour,$seconds/60,$seconds % 60,
+		   $id[3],$id[4]);
+	    
+	}
+
+	#
+	# Place Event
+	#
 	my $title=$id[1];
 	my $track=$id[8]+0;
 	my $cartnum=sprintf("%-15d",(substr $id[7],2,8).sprintf("%02d",$track));
@@ -52,12 +68,6 @@ for(my $i=0;$i<$table->last_record;$i++) {
 	printf(F"%02d:%02d:%02d  %s%-34s 00:%02d:%02d\n",
 	       $hour,$seconds/60,$seconds % 60,$cartnum,
 	       (substr $id[1],0,34),$id[3],$id[4]);
-	if($id[9] ne "*") {
-	    printf(F"%02d:%02d:%02d  BREAK          SPOT BREAK                         00:04:00\n",
-		   $hour,$seconds/60,$seconds % 60,
-		   $id[3],$id[4]);
-	    
-	}
     }
 }
 close(F);
