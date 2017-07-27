@@ -44,7 +44,8 @@ for(my $i=0;$i<$table->last_record;$i++) {
 	    $hour=$id[5];
 	}
 	my $title=$id[1];
-	my $cartnum=sprintf("%-15d",(substr $id[7],2,8).$id[8]);
+	my $track=$id[8]+0;
+	my $cartnum=sprintf("%-15d",(substr $id[7],2,8).sprintf("%02d",$track));
 	if((substr $title,0,11) eq "VOICE TRACK") {
 	    $cartnum="TRACK          ";
 	}
