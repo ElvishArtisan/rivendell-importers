@@ -46,3 +46,5 @@
 2017-07-27 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a fencepost error in 'log/musicplus.pl' that caused breaks to
 	be inserted after the last event of the preceding music set.
+2017-07-27 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored 'log/musicplus.pl' to use nominal start times.

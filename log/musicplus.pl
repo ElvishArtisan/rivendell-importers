@@ -27,6 +27,11 @@ if(scalar(@ARGV)!=2) {
     exit 1;
 }
 
+my @break_table=(8,16,24,32,40,48,54);
+my @music_table=(3,11,19,27,35,43,51);
+my $active_break=0;
+my $music_ptr=0;
+
 my $srcfile=$ARGV[0];
 my $dstfile=$ARGV[1];
 my $table = new XBase $srcfile or die XBase->errstr;
@@ -44,30 +49,30 @@ for(my $i=0;$i<$table->last_record;$i++) {
 	else {
 	    $seconds=0;
 	    $hour=$id[5];
+	    $active_break=0;
 	}
 
 	#
 	# Place Break
 	#
 	if($id[9] ne "*") {
-	    printf(F"%02d:%02d:%02d  BREAK          SPOT BREAK                         00:04:00\n",
-		   $hour,$seconds/60,$seconds % 60,
-		   $id[3],$id[4]);
-	    
+	    printf(F"%02d:%02d:00  BREAK          SPOT BREAK                         00:02:00\n",$hour,$break_table[$active_break++]);
+	    $music_ptr=0;
 	}
 
 	#
 	# Place Event
 	#
-	my $title=$id[1];
+	my $title=substr $id[1],0,34;
 	my $track=$id[8]+0;
 	my $cartnum=sprintf("%-15d",(substr $id[7],2,8).sprintf("%02d",$track));
 	if((substr $title,0,11) eq "VOICE TRACK") {
 	    $cartnum="TRACK          ";
+	    $title=sprintf("VOICE TRACK - %02d:%02d:%02d  ",$hour,$seconds/60,$seconds % 60);
 	}
 	printf(F"%02d:%02d:%02d  %s%-34s 00:%02d:%02d\n",
-	       $hour,$seconds/60,$seconds % 60,$cartnum,
-	       (substr $id[1],0,34),$id[3],$id[4]);
+	       $hour,$music_table[$active_break],$music_ptr++,$cartnum,
+	       $title,$id[3],$id[4]);
     }
 }
 close(F);
