@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2017 Fred Gleason <fredg@paravelsystems.com>
 #
-#   This scriptrequire the perl-DBD-Xbase package.
+#   This script requires the perl-DBD-Xbase package.
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -28,7 +28,7 @@ if(scalar(@ARGV)!=2) {
 }
 
 my @break_table=(8,16,24,32,40,48,54);
-my @music_table=(3,11,19,27,35,43,51);
+my @music_table=(0,14,22,30,38,46,52);
 my $active_break=0;
 my $music_ptr=0;
 
@@ -56,7 +56,7 @@ for(my $i=0;$i<$table->last_record;$i++) {
 	# Place Break
 	#
 	if($id[9] ne "*") {
-	    printf(F"%02d:%02d:00  BREAK          SPOT BREAK                         00:02:00\n",$hour,$break_table[$active_break++]);
+	    printf(F"%02d:%02d:00  BREAK          SPOT BREAK                         00:05:00\n",$hour,$break_table[$active_break++]);
 	    $music_ptr=0;
 	}
 

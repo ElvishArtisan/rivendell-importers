@@ -48,3 +48,5 @@
 	be inserted after the last event of the preceding music set.
 2017-07-27 Fred Gleason <fredg@paravelsystems.com>
 	* Refactored 'log/musicplus.pl' to use nominal start times.
+2017-07-27 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the break durations from 2:00 to 5:00 in 'log/musicplus.pl'.
