@@ -50,3 +50,6 @@
 	* Refactored 'log/musicplus.pl' to use nominal start times.
 2017-07-27 Fred Gleason <fredg@paravelsystems.com>
 	* Changed the break durations from 2:00 to 5:00 in 'log/musicplus.pl'.
+2017-07-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'log/musicplus.pl that caused phantom breaks to be
+	introduced in the weekend clock.

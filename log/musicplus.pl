@@ -31,13 +31,12 @@ my $dstfile=$ARGV[1];
 my $dow=$ARGV[2];
 
 if(($dow eq 6)||($dow eq 7)) {
-    printf("WEEKEND\n");
     #
     # Weekends
     #
     my @break_table=(0,10,15,25,35,50);
     my @length_table=(5,4,5,5,5,5);
-    my @music_table=(0,6,15,21,31,41,56);
+    my @music_table=(0,6,14,21,31,41,56);
     my $active_break=0;
     my $music_ptr=0;
 
@@ -46,12 +45,6 @@ if(($dow eq 6)||($dow eq 7)) {
     my $hour=0;
     my $seconds=0;
 
-    #
-    # Initial midnight break
-    #
-    printf(F"00:00:00  BREAK          SPOT BREAK                         00:%02d:00\n",
-	   $length_table[$active_break]);
-    $active_break++;
     for(my $i=0;$i<$table->last_record;$i++) {
 	my @id=$table->get_record($i,("MM_DESC","MM_ARTIST","MM_MINUTES","MM_SECONDS","MM_HOUR","MM_SEQ_NO","MM_ID_CODE","MM_TRACK","BREAK"));
 	if(length($id[1])>0) {
@@ -63,9 +56,6 @@ if(($dow eq 6)||($dow eq 7)) {
 		$seconds=0;
 		$hour=$id[5];
 		$active_break=0;
-		printf(F"%02d:00:00  BREAK          SPOT BREAK                         00:%02d:00\n",
-		       $hour,$length_table[$active_break]);
-		$active_break++;
 	    }
 
 	    #
@@ -95,7 +85,6 @@ if(($dow eq 6)||($dow eq 7)) {
     close(F);
 }
 else {
-    printf("WEEKDAY\n");
     #
     # Weekdays
     #
