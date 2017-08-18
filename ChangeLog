@@ -53,3 +53,5 @@
 2017-07-27 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed bugs in 'log/musicplus.pl that caused phantom breaks to be
 	introduced in the weekend clock.
+2017-08-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'misc/getlogaudio.py'.

@@ -18,3 +18,12 @@ fix_oversched.pl -- Rewrite overschedule log import events to be within
 
 mm_splitter.pl -- Split a MusicMaster log into separate 'music' and 'traffic'
                   imports.
+
+musicplus.pl -- Convert a DBF file from MusicPlus to a standard Rivendell
+                log import
+
+
+MISC SCRIPTS
+------------
+getlogaudio.py -- Copy the needed audio files to play a specified log from
+	          a local or remote audio store to a specified directory.
