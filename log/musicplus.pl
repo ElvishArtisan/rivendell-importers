@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2017 Fred Gleason <fredg@paravelsystems.com>
 #
-#   This script requires the perl-DBD-Xbase package.
+#   This script requires the perl-DBD-XBase package.
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as

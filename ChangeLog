@@ -55,5 +55,11 @@
 	introduced in the weekend clock.
 2017-08-18 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'misc/getlogaudio.py'.
+2018-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a typo in the name of the perl dependency for the
+	musicplus.pl(1) script.
+2018-08-02 Fred Gleason <fredg@paravelsystems.com>
+	* Added a link for the Perl 'Xbase' package to the comment header
+	of 'audio/dadpro-import.pl'.
 2018-09-08 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'misc/logchain.sh'.
