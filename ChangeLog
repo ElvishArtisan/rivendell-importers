@@ -63,3 +63,6 @@
 	of 'audio/dadpro-import.pl'.
 2018-09-08 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'misc/logchain.sh'.
+2018-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a typo in 'audio/nested-import.pl' that caused a '.' character
+	to be pre- and post-pended to the filepath saved in 'User Defined'.

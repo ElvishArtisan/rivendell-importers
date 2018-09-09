@@ -180,7 +180,7 @@ sub ProcessDirectory
 {
     if(-f $_) {
 	my $cmd="rdimport ".$rdimport_args."";
-	$cmd=$cmd."--set-string-user-defined=\".$_.\" ";
+	$cmd=$cmd."--set-string-user-defined=\"".$_."\" ";
 	$cmd=$cmd.$group_name." \"".$_."\"";
 	system($cmd);
 
