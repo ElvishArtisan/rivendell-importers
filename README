@@ -4,11 +4,15 @@ or later to function properly.
 
 AUDIO IMPORTERS
 ---------------
-dadpro_import.pl -- Import audio from an ENCO DADPro system
+dadpro-import.pl -- Import audio from an ENCO DADPro system
 
-digilink_import.pl -- Import audio from an Arrakis Digilink Xtreme
+digilink-import.pl -- Import audio from an Arrakis Digilink Xtreme
 
-nested_import.pl -- Recursively import audio from a file tree.
+nested-import.pl -- Recursively import audio from a file tree.
+
+nested-import-mp3data.pl -- Like 'nested-import.pl', but saves the ID3
+                            Genre and MPEG bitrate to the Rivendell
+                            'Client' and 'Agency' fields.
 
 
 LOG IMPORTERS
