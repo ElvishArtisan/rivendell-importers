@@ -83,7 +83,7 @@ my @rdimport_opts=('--add-scheduler-code',
 		   '--use-cartchunkl-cutid');
 
 
-my $usage="USAGE: dadpro-import.pl --dbf-file=<filename> <group-name> <cut-dir>";
+my $usage="USAGE: dadpro-import.pl --dbf-file=<filename> --first-cut=<dad-cut> --last-cut=<dad-cut> <group-name> <cut-dir>";
 if(scalar @ARGV lt 3) {
     print $usage."\n";
     exit 256;
@@ -185,42 +185,86 @@ for(my $i=0;$i<scalar @keys;$i++) {
     }
 }
 
+#
+# Cart Range
+#
+my $first_cut=1;
+my $last_cut=99999;
+for(my $i=0;$i<scalar @keys;$i++) {
+    if($keys[$i] eq "--first-cut") {
+	$first_cut=int($values[$i]);
+	if(($first_cut<1)||($first_cut>99999)) {
+	    print "dadpro-import.pl: invalid \"--first-cut\" value\n";
+	    exit(1);
+	}
+    }
+    if($keys[$i] eq "--last-cut") {
+	$last_cut=int($values[$i]);
+	if(($last_cut<1)||($last_cut>99999)) {
+	    print "dadpro-import.pl: invalid \"--last-cut\" value\n";
+	    exit(1);
+	}
+    }
+}
+if($first_cut > $last_cut) {
+    print "dadpro-import.pl \"--first-cut\" must be less than or equal to \"--last-cut\"\n";
+    exit(1);
+}
+
 my $dbh=new Xbase;
 $dbh->open_dbf($dbf_name);
 $dbh->go_top;
 while (!$dbh->eof) {
     my $cartnum=$dbh->get_field("CUT");
-    my $cutpath=$cutdir."/".$dbh->get_field("CUT").".WAV";
-    if(-f $cutpath) {
-	my $cmd="rdimport ".$rdimport_args;
-	$cmd=$cmd.sprintf(" --to-cart=%u",$cartnum);
-	$cmd=$cmd." --set-string-title=\"".&trim($dbh->get_field("TITLE"))."\"";
-	$cmd=$cmd." --set-string-artist=\"".&trim($dbh->get_field("ARTIST"))."\"";
-	$cmd=$cmd." --set-string-outcue=\"".&trim($dbh->get_field("OUTCUE"))."\"";
-	$cmd=$cmd." --set-string-agency=\"".&trim($dbh->get_field("AGENCY"))."\"";
-	$cmd=$cmd." --set-string-user-defined=\"".&trim($dbh->get_field("USERDEF"))."\"";
-	$cmd=$cmd." --set-string-album=\"".&trim($dbh->get_field("ALBUM"))."\"";
-	$cmd=$cmd." --set-string-composer=\"".&trim($dbh->get_field("COMPOSER"))."\"";
-	$cmd=$cmd." --set-string-song-id=\"".&trim($dbh->get_field("SONGID"))."\"";
-	$cmd=$cmd.sprintf(" --set-marker-start-cut=%d",$dbh->get_field("STARTTIME")*1000);
-	$cmd=$cmd.sprintf(" --set-marker-end-cut=%d",$dbh->get_field("ENDTIME")*1000);
-	$cmd=$cmd.sprintf(" --set-marker-start-talk=%d",$dbh->get_field("STARTTALK")*1000);
-	$cmd=$cmd.sprintf(" --set-marker-end-talk=%d",$dbh->get_field("ENDTALK")*1000);
-	$cmd=$cmd.sprintf(" --set-marker-start-hook=%d",$dbh->get_field("HOOKSTART")*1000);
-	$cmd=$cmd.sprintf(" --set-marker-end-hook=%d",$dbh->get_field("HOOKEND")*1000);
-	$cmd=$cmd.sprintf(" --set-marker-start-segue=%d",$dbh->get_field("SEGUESTART")*1000);
-	$cmd=$cmd.sprintf(" --set-marker-end-segue=%d",$dbh->get_field("SEGUELEN")*1000);
-	$cmd=$cmd." ".&trim($dbh->get_field("GROUP"));
-	$cmd=$cmd." ".$cutpath;
-	printf "Importing cut %d [%s]\n",$cartnum,&trim($dbh->get_field("TITLE"));
-	system($cmd);
-    }
-    else {
-	printf STDERR "Cut %d [%s] has no audio, skipping...\n", $cartnum,&trim($dbh->get_field("TITLE"));
+    my $cutpath=$cutdir."/".$dbh->get_field("CUT").".MP2";
+    if(($cartnum>=$first_cut)&&($cartnum<=$last_cut)) {
+	if(-f $cutpath) {
+	    my $cmd="rdimport ".$rdimport_args;
+	    $cmd=$cmd.sprintf(" --to-cart=%u",$cartnum);
+	    $cmd=$cmd." --set-string-title=\"".&trim($dbh->get_field("TITLE"))."\"";
+	    $cmd=$cmd." --set-string-artist=\"".&trim($dbh->get_field("ARTIST"))."\"";
+	    $cmd=$cmd." --set-string-outcue=\"".&trim($dbh->get_field("OUTCUE"))."\"";
+	    $cmd=$cmd." --set-string-agency=\"".&trim($dbh->get_field("AGENCY"))."\"";
+	    $cmd=$cmd." --set-string-user-defined=\"".&trim($dbh->get_field("USERDEF"))."\"";
+	    $cmd=$cmd." --set-string-album=\"".&trim($dbh->get_field("ALBUM"))."\"";
+	    $cmd=$cmd." --set-string-composer=\"".&trim($dbh->get_field("COMPOSER"))."\"";
+	    $cmd=$cmd." --set-string-song-id=\"".&trim($dbh->get_field("SONGID"))."\"";
+#	    $cmd=$cmd.sprintf(" --set-marker-start-cut=%d",$dbh->get_field("STARTTIME")*1000);
+#	    $cmd=$cmd.sprintf(" --set-marker-end-cut=%d",$dbh->get_field("ENDTIME")*1000);
+#	    $cmd=$cmd.sprintf(" --set-marker-start-talk=%d",$dbh->get_field("STARTTALK")*1000);
+#	    $cmd=$cmd.sprintf(" --set-marker-end-talk=%d",$dbh->get_field("ENDTALK")*1000);
+#	    $cmd=$cmd.sprintf(" --set-marker-start-hook=%d",$dbh->get_field("HOOKSTART")*1000);
+#	    $cmd=$cmd.sprintf(" --set-marker-end-hook=%d",$dbh->get_field("HOOKEND")*1000);
+#	    $cmd=$cmd.sprintf(" --set-marker-start-segue=%d",$dbh->get_field("SEGUESTART")*1000);
+#	    $cmd=$cmd.sprintf(" --set-marker-end-segue=%d",$dbh->get_field("SEGUELEN")*1000);
+	    #$cmd=$cmd." ".&trim($dbh->get_field("GROUP"));
+	    $cmd=$cmd." ".$group_name;
+	    $cmd=$cmd." ".$cutpath;
+	    printf "Importing cut %d [%s]\n",$cartnum,&trim($dbh->get_field("TITLE"));
+	    #print "CMD: ".$cmd."\n";
+	    system($cmd);
+	}
+	else {
+	    printf STDERR "Cut %d [%s] has no audio, skipping...\n", $cartnum,&trim($dbh->get_field("TITLE"));
+	}
     }
     $dbh->go_next;
+
 }
+
 exit(0);
+
+
+sub SetString
+{
+    my $field=$_[0];
+    my $value=$_[1];
+
+    if($value eq "") {
+	return "";
+    }
+    return " --set-string-".$field."=\"".$value."\"";
+}
 
 
 sub trim 
