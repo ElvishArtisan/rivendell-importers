@@ -71,3 +71,5 @@
 2019-10-24 Fred Gleason <fredg@paravelsystems.com>
 	* Added a '--first-cut' switch to 'audio/dadpro-import.pl'
 	* Added a '--last-cut' switch to 'audio/dadpro-import.pl'
+2019-10-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--cart-offset' switch to 'audio/dadpro-import.pl'.

@@ -83,7 +83,7 @@ my @rdimport_opts=('--add-scheduler-code',
 		   '--use-cartchunkl-cutid');
 
 
-my $usage="USAGE: dadpro-import.pl --dbf-file=<filename> --first-cut=<dad-cut> --last-cut=<dad-cut> <group-name> <cut-dir>";
+my $usage="USAGE: dadpro-import.pl --dbf-file=<filename> --first-cut=<dad-cut> --last-cut=<dad-cut> --cart-offset=<offset> <group-name> <cut-dir>";
 if(scalar @ARGV lt 3) {
     print $usage."\n";
     exit 256;
@@ -101,7 +101,7 @@ my $cart_number_offset=0;
 #
 for(my $i=0;$i<(scalar @ARGV-2);$i++) {
     if(substr($ARGV[$i],0,2) ne "--") {
-	print "Invalid argument\n";
+	print "invalid argument\n";
 	exit 256;
     }
     my @f0=split "=",$ARGV[$i];
@@ -190,7 +190,15 @@ for(my $i=0;$i<scalar @keys;$i++) {
 #
 my $first_cut=1;
 my $last_cut=99999;
+my $cart_offset=0;
 for(my $i=0;$i<scalar @keys;$i++) {
+    if($keys[$i] eq "--cart-offset") {
+	$cart_offset=int($values[$i]);
+	if((int($values[$i])<-99998)||(int($values[$i])>900000)) {
+	    print "dadpro-import.pl: invalid \"--cart-offset\"\n";
+	    exit(1);
+	}
+    }
     if($keys[$i] eq "--first-cut") {
 	$first_cut=int($values[$i]);
 	if(($first_cut<1)||($first_cut>99999)) {
@@ -215,12 +223,12 @@ my $dbh=new Xbase;
 $dbh->open_dbf($dbf_name);
 $dbh->go_top;
 while (!$dbh->eof) {
-    my $cartnum=$dbh->get_field("CUT");
+    my $cutnum=$dbh->get_field("CUT");
     my $cutpath=$cutdir."/".$dbh->get_field("CUT").".MP2";
-    if(($cartnum>=$first_cut)&&($cartnum<=$last_cut)) {
+    if(($cutnum>=$first_cut)&&($cutnum<=$last_cut)) {
 	if(-f $cutpath) {
 	    my $cmd="rdimport ".$rdimport_args;
-	    $cmd=$cmd.sprintf(" --to-cart=%u",$cartnum);
+	    $cmd=$cmd.sprintf(" --to-cart=%u",$cutnum+$cart_offset);
 	    $cmd=$cmd." --set-string-title=\"".&trim($dbh->get_field("TITLE"))."\"";
 	    $cmd=$cmd." --set-string-artist=\"".&trim($dbh->get_field("ARTIST"))."\"";
 	    $cmd=$cmd." --set-string-outcue=\"".&trim($dbh->get_field("OUTCUE"))."\"";
@@ -240,12 +248,12 @@ while (!$dbh->eof) {
 	    #$cmd=$cmd." ".&trim($dbh->get_field("GROUP"));
 	    $cmd=$cmd." ".$group_name;
 	    $cmd=$cmd." ".$cutpath;
-	    printf "Importing cut %d [%s]\n",$cartnum,&trim($dbh->get_field("TITLE"));
+	    printf "Importing cut %d [%s]\n",$cutnum,&trim($dbh->get_field("TITLE"));
 	    #print "CMD: ".$cmd."\n";
 	    system($cmd);
 	}
 	else {
-	    printf STDERR "Cut %d [%s] has no audio, skipping...\n", $cartnum,&trim($dbh->get_field("TITLE"));
+	    printf STDERR "Cut %d [%s] has no audio, skipping...\n", $cutnum,&trim($dbh->get_field("TITLE"));
 	}
     }
     $dbh->go_next;
