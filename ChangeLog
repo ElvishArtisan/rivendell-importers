@@ -73,3 +73,5 @@
 	* Added a '--last-cut' switch to 'audio/dadpro-import.pl'
 2019-10-25 Fred Gleason <fredg@paravelsystems.com>
 	* Added a '--cart-offset' switch to 'audio/dadpro-import.pl'.
+2019-11-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'misc/strip-cart-whitespace.py'.
