@@ -68,6 +68,13 @@
 	to be pre- and post-pended to the filepath saved in 'User Defined'.
 2018-09-08 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'audio/nested-import-mp3data.pl'.
+2019-10-24 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--first-cut' switch to 'audio/dadpro-import.pl'
+	* Added a '--last-cut' switch to 'audio/dadpro-import.pl'
+2019-10-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--cart-offset' switch to 'audio/dadpro-import.pl'.
+2019-11-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'misc/strip-cart-whitespace.py'.
 2020-03-17 Fred Gleason <fredg@paravelsystems.com>
 	* Added '--clear-datetimes', '--clear-daypart-times', --log-filename',
 	'--log-syslog', '--set-string-isci', '--set-string-recording-mbid',
