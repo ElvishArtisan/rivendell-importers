@@ -82,3 +82,5 @@
 	options in 'audio/nested-import.pl'.
 2020-05-28 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'backup/sync_remote_system.sh'.
+2020-05-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'backup/rd_backup_system.sh'.
