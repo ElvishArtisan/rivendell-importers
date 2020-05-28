@@ -84,3 +84,5 @@
 	* Added 'backup/sync_remote_system.sh'.
 2020-05-28 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'backup/rd_backup_system.sh'.
+2020-05-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'backup/rd_restore_system.sh'.
