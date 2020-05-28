@@ -80,3 +80,5 @@
 	'--log-syslog', '--set-string-isci', '--set-string-recording-mbid',
 	'--to-mono' and '--xml' to the set of recognized rdimport(1)
 	options in 'audio/nested-import.pl'.
+2020-05-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'backup/sync_remote_system.sh'.
