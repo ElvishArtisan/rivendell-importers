@@ -1,13 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # check_logs.py
 #
 # Print the name and last modified datetime of the most recent logs
 #
-#  (C) Copyright 2021 Fred Gleason <fredg@paravelsystems.com>
+#  (C) Copyright 2021-2022 Fred Gleason <fredg@paravelsystems.com>
 #
-#  This script requires the 'python', 'python-configparser' and
-#  'mysql-connector-python' packages.
+#  This script requires the 'python3' and 'python3-mysql' packages.
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -23,11 +22,9 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from __future__ import print_function
-
-import ConfigParser
+import configparser
 import glob
-import mysql.connector
+import MySQLdb
 import subprocess;
 import sys, os, string
 
@@ -36,15 +33,15 @@ def eprint(*args,**kwargs):
 
 
 def GetDbCredentials():
-    config=ConfigParser.ConfigParser()
+    config=configparser.ConfigParser()
     config.readfp(open('/etc/rd.conf'))
     return (config.get('mySQL','Loginname'),config.get('mySQL','Password'),
             config.get('mySQL','Hostname'),config.get('mySQL','Database'))
 
 def OpenDb():
     creds=GetDbCredentials()
-    return mysql.connector.connect(user=creds[0],password=creds[1],
-                                   host=creds[2],database=creds[3],buffered=True)
+    return MySQLdb.connect(user=creds[0],password=creds[1],
+                           host=creds[2],database=creds[3])
 
 
 # ############################################################################
